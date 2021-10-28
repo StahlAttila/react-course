@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import ExpensesFilter from "../ExpenseFilter/ExpensesFilter";
-import ExpenseList from "../ExpenseList/ExpenseList";
+import ExpensesFilter from "../ExpensesFilter/ExpensesFilter";
+import ExpenseList from "../ExpensesList/ExpensesList";
 import Card from "../UI/Card";
 import "./Expenses.css";
 
