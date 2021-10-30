@@ -1,0 +1,11 @@
+.button {
+  background-color: rgb(88, 2, 77);
+  color: aliceblue;
+  font-size: 14px;
+  padding: 5px 15px;
+  border: 0px;
+}
+
+.button:hover {
+  background-color: rgb(128, 3, 111);
+}
