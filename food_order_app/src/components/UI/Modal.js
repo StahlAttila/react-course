@@ -19,7 +19,7 @@ const Modal = (props) => {
   return (
     <Fragment>
       {ReactDOM.createPortal(
-        <Backdrop />,
+        <Backdrop onClick={props.onClick}/>,
         document.getElementById("backdrop-root")
       )}
       {ReactDOM.createPortal(

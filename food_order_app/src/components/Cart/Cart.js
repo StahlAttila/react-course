@@ -26,16 +26,21 @@ const Cart = (props) => {
 
   const cartItems = DUMMY_MEALS.map((cartItem) => <li>{cartItem.name}</li>);
 
+  const orderHandler = () => {
+    console.log("Ordering");
+    props.onHide();
+  }
+
   return (
-    <Modal>
+    <Modal onClick={props.onHide}>
         <ul className={classes["cart-items"]}>{cartItems}</ul>
         <div className={classes.total}>
           <span>Total amount</span>
           <span>{totalAmount}</span>
         </div>
         <div className={classes.actions}>
-          <button className={classes['button--alt']} onClick={props.onClose}>Close</button>
-          <button className={classes.button} onClick={props.onOrder}>Order</button>
+          <button className={classes['button--alt']} onClick={props.onHide}>Close</button>
+          <button className={classes.button} onClick={orderHandler}>Order</button>
         </div>
     </Modal>
   );

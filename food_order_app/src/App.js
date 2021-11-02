@@ -4,21 +4,20 @@ import Header from "./components/Layout/Header";
 import Meals from "./components/Meals/Meals";
 
 function App() {
-  const [isCartOpen, setIsCartOpen] = useState(true);
+  const [isCartOpen, setIsCartOpen] = useState(false);
 
-  const onCloseHandler = () => {
-    setIsCartOpen(false);
+  const showCartHandler = () => {
+    setIsCartOpen(true);
   }
 
-  const onOrderHandler = () => {
-    console.log("Ordering....");
+  const hideCartHandler = () => {
     setIsCartOpen(false);
   }
 
   return (
     <Fragment>
-      {isCartOpen && <Cart onClose={onCloseHandler} onOrder={onOrderHandler}/>}
-      <Header />
+      {isCartOpen && <Cart onHide={hideCartHandler}/>}
+      <Header onShowCart={showCartHandler}/>
       <main>
         <Meals />
       </main>
