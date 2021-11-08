@@ -58,6 +58,8 @@ function App() {
         'Content-type': 'application/json'
       }
     });
+
+    fetchMoviesHandler();
   }
 
   let content = <p>Found no movies.</p>;
