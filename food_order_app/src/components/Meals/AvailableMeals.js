@@ -1,37 +1,42 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import classes from "./AvailableMeals.module.css";
 import MealItem from "./MealItem/MealItem";
 import Card from "../UI/Card";
-
-const DUMMY_MEALS = [
-  {
-    id: "m1",
-    name: "Sushi",
-    description: "Finest fish and veggies",
-    price: 22.99,
-  },
-  {
-    id: "m2",
-    name: "Schnitzel",
-    description: "A german specialty!",
-    price: 16.5,
-  },
-  {
-    id: "m3",
-    name: "Barbecue Burger",
-    description: "American, raw, meaty",
-    price: 12.99,
-  },
-  {
-    id: "m4",
-    name: "Green Bowl",
-    description: "Healthy...and green...",
-    price: 18.99,
-  },
-];
+import axios from "axios";
+import Loader from "react-loader-spinner";
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 
 const AvailableMeals = () => {
-  const mealsList = DUMMY_MEALS.map((meal) => (
+  const [meals, setMeals] = useState([]);
+  const [isFetching, setIsFetching] = useState(false);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchMeals = async () => {
+      setIsFetching(true);
+      setError(null);
+
+      const response = await axios.get(
+        "https://food-order-app-82eb9-default-rtdb.europe-west1.firebasedatabase.app/meals.json"
+      );
+
+      const meals = [];
+      for (const key in response.data) {
+        const meal = { ...response.data[key], id: key };
+        meals.push(meal);
+      }
+
+      setMeals(meals);
+      setIsFetching(false);
+    };
+
+    fetchMeals().catch((err) => {
+      setIsFetching(false);
+      setError(err.message);
+    });
+  }, []);
+
+  const mealsList = meals.map((meal) => (
     <MealItem
       id={meal.id}
       key={meal.id}
@@ -44,7 +49,11 @@ const AvailableMeals = () => {
   return (
     <section className={classes.meals}>
       <Card>
-        <ul>{mealsList}</ul>
+        {isFetching && (
+          <Loader type="TailSpin" color="#8a2b06" height={80} width={80} />
+        )}
+        {!isFetching && !error && <ul>{mealsList}</ul>}
+        {!isFetching && error && <p>{error}</p>}
       </Card>
     </section>
   );
