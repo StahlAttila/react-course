@@ -1,23 +1,31 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Fragment } from "react";
 import { Route, useParams } from "react-router";
 import { Link, useRouteMatch } from "react-router-dom";
 import Comments from "../components/comments/Comments";
 import HighlightedQuote from "../components/quotes/HighlightedQuote";
-
-const DUMMY_QUOTES = [
-  { id: "q1", author: "State", text: "swag swag yolo yolo" },
-  { id: "q2", author: "State2", text: "lorem asd ydsa dasd asdk " },
-  { id: "q3", author: "State3", text: "asdasd asd asd , asdasd,d asdasd!!" },
-];
+import useHttp from '../hooks/use-http';
+import { getSingleQuote } from "../lib/api";
+import LoadingSpinner from "../components/UI/LoadingSpinner";
 
 const QuotePage = () => {
   const params = useParams();
   const match = useRouteMatch();
+  const { sendRequest, data: quote, status } = useHttp(getSingleQuote, true);
+  
+  useEffect(() => {
+    sendRequest(params.quoteId);
+  }, [sendRequest, params.quoteId]);
 
-  const quote = DUMMY_QUOTES.find((quote) => quote.id === params.quoteId);
+  if(status === 'pending') {
+    return (
+      <div className="centered">
+        <LoadingSpinner />
+      </div>
+    );
+  }
 
-  if (!quote) {
+  if(!quote) {
     return <p className="centered">No Quote found!</p>;
   }
 
