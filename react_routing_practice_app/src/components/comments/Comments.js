@@ -41,14 +41,11 @@ const Comments = () => {
   }
 
   if (status === "completed" && (comments && comments.length > 0)) {
-    console.log("found comments")
-    console.log(comments)
     commentsSection = <CommentsList comments={comments} />
   }
 
   
   if (status === "completed" && (!comments || comments.length === 0)) {
-    console.log("empty")
     commentsSection = <p className="centered">Such empty...</p>
   }
 
