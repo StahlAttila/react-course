@@ -4,7 +4,7 @@ import AuthContext from "../../store/auth-context";
 
 import classes from "./AuthForm.module.css";
 
-const API_KEY = "AIzaSyAGF5rIfoI1UZpvhyPS3In7lt3g0glMqpA";
+const API_KEY = "insert api code here";
 
 const AuthForm = () => {
   const [isLogin, setIsLogin] = useState(true);
