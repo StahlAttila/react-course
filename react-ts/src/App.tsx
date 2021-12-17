@@ -1,9 +1,9 @@
-import './App.css';
+import Todos from './components/Todos';
 
 function App() {
   return (
     <div>
-      ASD
+      <Todos items={['asd1', 'asd2']}/>
     </div>
   );
 }
